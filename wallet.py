@@ -45,7 +45,7 @@ class Wallet:
         """Generate a new pair of private and public key."""
         private_key = RSA.generate(1024, Crypto.Random.new().read)
         public_key = private_key.publickey()
-        return (binascii.hexlify(private_key.exportKey(format='DER')).decode('ascii'), binascii.hexlify(public_key.exportKey(format='DER')).decode('ascii'))
+        return binascii.hexlify(private_key.exportKey(format='DER')).decode('ascii'), binascii.hexlify(public_key.exportKey(format='DER')).decode('ascii')
 
     def sign_transaction(self, sender, recipient, amount):
         """Sign a transaction and return the signature.
@@ -62,7 +62,7 @@ class Wallet:
 
     @staticmethod
     def verify_transaction(transaction):
-        """Verify the signature of a transaction. 
+        """Verify the signature of a transaction.
 
         Arguments:
             :transaction: The transaction that should be verified.
