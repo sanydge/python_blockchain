@@ -7,6 +7,7 @@ class Node:
     def __init__(self):
         #self.wallet.public_key = str(uuid4())
         self.wallet = Wallet()
+        self.wallet.create_keys()
         self.blockchain = Blockchain(self.wallet.public_key)
 
     def get_transaction_value(self):
@@ -43,6 +44,7 @@ class Node:
             print('4: Check transaction validity')
             print('5: Create wallet')
             print('6: Load wallet')
+            print('7: Save keys')
             print('q: Quit')
             user_choice = self.get_user_choice()
             if user_choice == '1':
@@ -55,7 +57,8 @@ class Node:
                     print('Transaction failed!')
                 print(self.blockchain.get_open_transactions)
             elif user_choice == '2':
-                self.blockchain.mine_block()
+                if not self.blockchain.mine_block():
+                    print('Mining failed. Got no wallet?')
             elif user_choice == '3':
                 self.print_blockchain_elements()
             elif user_choice == '4':
@@ -65,8 +68,12 @@ class Node:
                     print('There are invalid transactions')
             elif user_choice == '5':
                 self.wallet.create_keys()
+                self.blockchain = Blockchain(self.wallet.public_key)
             elif user_choice == '6':
-                pass
+                self.wallet.load_keys()
+                self.blockchain = Blockchain(self.wallet.public_key)
+            elif user_choice == '7':
+                self.wallet.save_keys()
             elif user_choice == 'q':
                 # This will lead to the loop to exist because it's running condition becomes False
                 waiting_for_input = False
