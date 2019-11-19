@@ -10,3 +10,4 @@ class Block(Printable):
         self.timestamp = time
         self.transactions = transactions
         self.proof = proof
+
