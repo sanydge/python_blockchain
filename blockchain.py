@@ -1,8 +1,6 @@
 from functools import reduce
-import hashlib as hl
 
 import json
-import pickle
 import requests
 
 # Import two functions from our hash_util.py file. Omit the ".py" in the import
@@ -150,7 +148,7 @@ class Blockchain:
         tx_sender.append(open_tx_sender)
         print(tx_sender)
         amount_sent = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt)
-                             if len(tx_amt) > 0 else tx_sum + 0, tx_sender, 0)
+        if len(tx_amt) > 0 else tx_sum + 0, tx_sender, 0)
         # This fetches received coin amounts of transactions that were already
         # included in blocks of the blockchain
         # We ignore open transactions here because you shouldn't be able to spend coins
@@ -158,7 +156,7 @@ class Blockchain:
         tx_recipient = [[tx.amount for tx in block.transactions
                          if tx.recipient == participant] for block in self.__chain]
         amount_received = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt)
-                                 if len(tx_amt) > 0 else tx_sum + 0, tx_recipient, 0)
+        if len(tx_amt) > 0 else tx_sum + 0, tx_recipient, 0)
         # Return the total balance
         return amount_received - amount_sent
 
