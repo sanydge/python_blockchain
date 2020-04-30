@@ -39,7 +39,7 @@ class Blockchain:
         self.resolve_conflicts = False
         self.load_data()
 
-    #  Turns the chain attribute into a property with a getter (the method below) and a setter (@chain.setter)
+    #  This turns the chain attribute into a property with a getter (the method below) and a setter (@chain.setter)
     @property
     def chain(self):
         return self.__chain[:]
